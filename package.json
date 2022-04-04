@@ -8,7 +8,7 @@
     "test": "npx mocha --parallel 'src/**/*.test.js'",
     "test:watch": "npm test -- -w",
     "test:cov": "npx nyc -- npm test",
-    "dev": "npx nodemon --ignore src/infra/database/database.json --exec node src/index.js",
+    "dev": "npx nodemon --ignore src/infra/database/database.json --exec node --experimental-json-modules src/index.js",
     "prepare": "husky install"
   },
   "keywords": [],
