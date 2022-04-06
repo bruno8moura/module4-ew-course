@@ -2,11 +2,12 @@ import chalkTable from 'chalk-table'
 import chalk from 'chalk'
 
 export default class Table {
-  createTable (data) {
+  constructor (data) {
     this.data = data
-    const table = chalkTable(this.getTableOptions(), data)
+  }
 
-    return table
+  drawTable () {
+    return chalkTable(this.getTableOptions(), this.data)
   }
 
   getTableOptions () {
@@ -20,5 +21,9 @@ export default class Table {
         { field: 'to', name: chalk.cyan('To') }
       ]
     }
+  }
+
+  updateTable (item) {
+    this.data.push(item)
   }
 }

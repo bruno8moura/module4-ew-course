@@ -1,5 +1,6 @@
 import readline from 'readline'
 import DraftLog from 'draftlog'
+const STOP_TERM = ':q'
 export const createCustomTerminal = () => {
   // Increments, on demand, the table drawn in the terminal
   DraftLog(console).addLineListener(process.stdin)
@@ -16,8 +17,11 @@ export const createCustomTerminal = () => {
     console: {
       draft: obj => console.draft(obj)
     },
-    closeTerminal: function () {
-      terminal.close()
+    closeTerminal: function (code) {
+      if (code === STOP_TERM) {
+        terminal.close()
+        process.exit(0)
+      }
     }
   }
 }
