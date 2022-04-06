@@ -23,4 +23,19 @@ export default class Person {
         .dateTimeFormat({ language, data: this.dateFormat.stringDateToDate(this.to), options: { month: 'long', day: '2-digit', year: 'numeric' } })
     }
   }
+
+  // 2 Bike,Aviao,Navio 200000000 2000-01-01 2002-02-01
+  static generateInstanceFromString (text, internationalization, dateFormat) {
+    const EMPTY_SPACE = ' '
+    const [id, vehicles, kmTraveled, from, to] = text.split(EMPTY_SPACE)
+    const person = new Person({
+      id,
+      kmTraveled,
+      from,
+      to,
+      vehicles: vehicles.split(',')
+    }, internationalization, dateFormat)
+
+    return person
+  }
 }

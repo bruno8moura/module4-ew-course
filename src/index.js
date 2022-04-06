@@ -23,6 +23,9 @@ async function mainLoop () {
       return
     }
     
+    const person = Person.generateInstanceFromString(answer, new Internationalization(), new DateFormat())
+    console.log(person.formatted(DEFAULT_LANG))
+    
     return mainLoop()
   } catch (e) {
     console.log('erro: ', e)
