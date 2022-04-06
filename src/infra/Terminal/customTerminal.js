@@ -15,6 +15,9 @@ export const createCustomTerminal = () => {
     terminal,
     console: {
       draft: obj => console.draft(obj)
+    },
+    closeTerminal: function () {
+      terminal.close()
     }
   }
 }

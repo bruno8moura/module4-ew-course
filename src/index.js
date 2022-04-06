@@ -11,15 +11,23 @@ const customTerminal = createCustomTerminal()
 const data = database.map(item => new Person(item, new Internationalization(), new DateFormat()).formatted(DEFAULT_LANG))
 const table = new Table().createTable(data)
 
+const STOP_TERM = ':q'
 const terminalController = new TerminalController({ data, language: DEFAULT_LANG, customTerminal, table })
 
 async function mainLoop () {
   try {
-    const answer = await terminalController.execute({ question: 'What??' })
-    console.log('answer', answer)
+    const answer = await terminalController.execute()
+    if (answer === STOP_TERM) {
+      customTerminal.closeTerminal()
+      console.log('process finished!')
+      return
+    }
+    
+    return mainLoop()
   } catch (e) {
     console.log('erro: ', e)
+    return mainLoop()
   }
 }
 
-mainLoop()
+await mainLoop()
