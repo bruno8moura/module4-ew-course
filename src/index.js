@@ -8,8 +8,8 @@ import DateFormat from './utils/DateFormat/index.js'
 
 const DEFAULT_LANG = 'pt-BR'
 const customTerminal = createCustomTerminal()
-const data = database.map(item => new Person(item, new Internationalization(), new DateFormat()).formatted(DEFAULT_LANG))
-const table = new Table(data)
+const data = database.map(item => new Person(item, new Internationalization(), new DateFormat()))
+const table = new Table({language: DEFAULT_LANG, data})
 
 const terminalController = new TerminalController({ customTerminal, table })
 

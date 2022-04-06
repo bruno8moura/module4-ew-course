@@ -2,12 +2,13 @@ import chalkTable from 'chalk-table'
 import chalk from 'chalk'
 
 export default class Table {
-  constructor (data) {
+  constructor ({ language, data }) {
+    this.language = language
     this.data = data
   }
 
   drawTable () {
-    return chalkTable(this.getTableOptions(), this.data)
+    return chalkTable(this.getTableOptions(), this.data.map(item => item.formatted(this.language)))
   }
 
   getTableOptions () {
