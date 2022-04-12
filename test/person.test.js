@@ -30,4 +30,23 @@ describe('Person', () => {
 
     expect(p).to.be.deep.equal(expected)
   })
+
+  it('should format person values', () => {
+    const person = Person.generateInstanceFromString(
+      '1 Bike,Carro 20000 2020-01-01 2020-02-01',
+      new Internationalization(),
+      new DateFormat()
+    )
+
+    const result = person.formatted('pt-BR')
+    const expected = {
+      id: 1,
+      vehicles: 'Bike e Carro',
+      kmTraveled: '20.000 km',
+      from: '01 de janeiro de 2020',
+      to: '01 de fevereiro de 2020'
+    }
+
+    expect(result).to.be.deep.equal(expected)
+  })
 })
