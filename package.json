@@ -5,10 +5,10 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "test": "npx mocha --parallel 'test/**/*.test.js'",
+    "test": "c8 mocha --parallel 'test/**/*.test.js'",
     "test:watch": "npm test -- -w",
-    "test:cov": "npx nyc -- npm test",
-    "dev": "npx nodemon --ignore src/infra/database/database.json --exec node --experimental-json-modules src/index.js",
+    "test:cov": "nyc -- npm test",
+    "dev": "nodemon --ignore src/infra/database/database.json --exec node --experimental-json-modules src/index.js",
     "prepare": "husky install"
   },
   "keywords": [],
@@ -18,6 +18,7 @@
     "node": "16.13"
   },
   "devDependencies": {
+    "c8": "^7.11.0",
     "chai": "^4.3.6",
     "chai-spies": "^1.0.0",
     "eslint": "^7.32.0",
