@@ -24,4 +24,15 @@ describe('DateFormat', () => {
     expect(result.isValid).to.be.equal(expected.isValid)
     expect(result.error.message).to.be.equal(expected.error.message)
   })
+
+  it('should return an erro when invalid month', () => {
+    const expected = {
+      isValid: false,
+      error: new Error('The string date is invalid, the right format is yyyy-mm-dd')
+    }
+    const result = new DateFormat().stringDateToDate('2022-month-01')
+
+    expect(result.isValid).to.be.equal(expected.isValid)
+    expect(result.error.message).to.be.equal(expected.error.message)
+  })
 })
