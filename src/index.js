@@ -5,13 +5,14 @@ import Table from './infra/Table/index.js'
 import { createCustomTerminal } from './infra/Terminal/customTerminal.js'
 import TerminalController from './presentation/controllers/TerminalController/index.js'
 import DateFormat from './utils/DateFormat/index.js'
+import repository from './infra/repository/index.js'
 
 const DEFAULT_LANG = 'pt-BR'
 const customTerminal = createCustomTerminal()
 const data = database.map(item => new Person(item, new Internationalization(), new DateFormat()))
 const table = new Table({language: DEFAULT_LANG, data})
 
-const terminalController = new TerminalController({ customTerminal, table })
+const terminalController = new TerminalController({ customTerminal, table, repository })
 
 async function mainLoop () {
   try {
