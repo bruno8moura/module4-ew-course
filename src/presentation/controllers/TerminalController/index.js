@@ -14,9 +14,8 @@ export default class TerminalController {
   }
 
   async execute (obj = { question: '' }) {
-    const answer = await new Promise(resolve => this.customTerminal.terminal.question(obj.question, resolve))
+    const answer = await this.customTerminal.terminal.question(obj.question)
     this.customTerminal.closeTerminal(answer)
-
     const newPerson = Person.generateInstanceFromString(answer, new Internationalization(), new DateFormat())
     this.table.updateTable(newPerson)
     this.print(this.table.drawTable())

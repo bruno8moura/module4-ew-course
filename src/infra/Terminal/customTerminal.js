@@ -13,7 +13,13 @@ export const createCustomTerminal = () => {
   })
 
   return {
-    terminal,
+    terminal: {
+      question: async (question) => {
+        return new Promise((resolve, reject) => {
+          terminal.question(question, resolve)
+        })
+      }
+    },
     console: {
       draft: obj => console.draft(obj)
     },
