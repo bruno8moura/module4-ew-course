@@ -10,25 +10,34 @@ import Person from '../src/domain/Person/index.js'
 import Terminal from '../src/infra/Terminal/index.js'
 import Internationalization from '../src/infra/Internationalization/index.js'
 import DateFormat from '../src/utils/DateFormat/index.js'
-const { describe, it } = mocha
+const { describe, it, beforeEach, afterEach } = mocha
 chai.use(chaiAsPromised)
 
 const { expect } = chai
 
 describe('TerminalController', () => {
+  let sandbox = {}
+  beforeEach(() => {
+    sandbox = sinon.createSandbox()
+  })
+
+  afterEach(() => {
+    sandbox.restore()
+  })
+
   it("should print in terminal the person's table from an user's input", async () => {
     const expectedUsersInput = 'any_input'
     const terminal = new Terminal()
     const customTerminal = terminal.create()
-    sinon.stub(customTerminal.terminal, 'question').resolves(expectedUsersInput)
-    sinon.stub(customTerminal, 'closeTerminal')
-    sinon.stub(customTerminal.console, 'draft').returns(() => {})
+    sandbox.stub(customTerminal.terminal, 'question').resolves(expectedUsersInput)
+    sandbox.stub(customTerminal, 'closeTerminal')
+    sandbox.stub(customTerminal.console, 'draft').returns(() => {})
     const table = new Table({ data: [], language: 'any_language' })
-    sinon.stub(table, 'updateTable').returns()
-    sinon.stub(table, 'drawTable').returns('a_table')
+    sandbox.stub(table, 'updateTable').returns()
+    sandbox.stub(table, 'drawTable').returns('a_table')
     const newPerson = { field: 'a' }
-    sinon.stub(Person, 'generateInstanceFromString').returns(newPerson)
-    sinon.stub(repository, 'save')
+    sandbox.stub(Person, 'generateInstanceFromString').returns(newPerson)
+    sandbox.stub(repository, 'save')
 
     const sut = new TerminalController({
       customTerminal,
