@@ -1,7 +1,4 @@
 import Person from '../../../domain/Person/index.js'
-import Internationalization from '../../../infra/Internationalization/index.js'
-import DateFormat from '../../../utils/DateFormat/index.js'
-
 export default class TerminalController {
   constructor ({ customTerminal, table, repository }) {
     this.customTerminal = customTerminal
@@ -16,7 +13,7 @@ export default class TerminalController {
   async execute (obj = { question: '' }) {
     const answer = await this.customTerminal.terminal.question(obj.question)
     this.customTerminal.closeTerminal(answer)
-    const newPerson = Person.generateInstanceFromString(answer, new Internationalization(), new DateFormat())
+    const newPerson = Person.generateInstanceFromString(answer)
     this.table.updateTable(newPerson)
     this.print(this.table.drawTable())
 
