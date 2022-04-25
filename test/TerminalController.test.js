@@ -5,7 +5,7 @@ import mocha from 'mocha'
 import sinon from 'sinon'
 import TerminalController from '../src/presentation/controllers/TerminalController/index.js'
 import Table from '../src/utils/Table/index.js'
-import repository from '../src/infra/repository/index.js'
+import JSONRepository from '../src/infra/JSONRepository/index.js'
 import Person from '../src/domain/Person/index.js'
 import Terminal from '../src/infra/Terminal/index.js'
 const { describe, it, beforeEach, afterEach } = mocha
@@ -24,6 +24,7 @@ describe('TerminalController', () => {
   })
 
   it("should print in terminal the person's table from an user's input", async () => {
+    const repository = new JSONRepository()
     const expectedUsersInput = 'any_input'
     const terminal = new Terminal()
     const customTerminal = terminal.create()
