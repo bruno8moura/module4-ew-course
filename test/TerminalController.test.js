@@ -4,12 +4,10 @@ import chaiAsPromised from 'chai-as-promised'
 import mocha from 'mocha'
 import sinon from 'sinon'
 import TerminalController from '../src/presentation/controllers/TerminalController/index.js'
-import Table from '../src/infra/Table/index.js'
+import Table from '../src/utils/Table/index.js'
 import repository from '../src/infra/repository/index.js'
 import Person from '../src/domain/Person/index.js'
 import Terminal from '../src/infra/Terminal/index.js'
-import Internationalization from '../src/infra/Internationalization/index.js'
-import DateFormat from '../src/utils/DateFormat/index.js'
 const { describe, it, beforeEach, afterEach } = mocha
 chai.use(chaiAsPromised)
 
@@ -49,7 +47,7 @@ describe('TerminalController', () => {
 
     await sut.execute()
     expect(customTerminal.closeTerminal.calledWithExactly(expectedUsersInput)).to.be.ok
-    expect(Person.generateInstanceFromString.calledWithExactly(expectedUsersInput, new Internationalization(), new DateFormat())).to.be.ok
+    expect(Person.generateInstanceFromString.calledWithExactly(expectedUsersInput)).to.be.ok
     expect(table.updateTable.calledWithExactly(newPerson)).to.be.ok
     expect(sut.print.calledWithExactly(table.drawTable())).to.be.ok
     expect(repository.save.calledWithExactly(newPerson)).to.be.ok
