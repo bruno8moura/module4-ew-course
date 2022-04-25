@@ -2,9 +2,9 @@ import mocha from 'mocha'
 
 import chai from 'chai'
 
-import Person from './../src/domain/Person/index.js'
-import Internationalization from './../src/utils/Internationalization/index.js'
-import DateFormat from './../src/utils/DateFormat/index.js'
+import Person from '../src/domain/Person/index.js'
+import Internationalization from '../src/utils/Internationalization/index.js'
+import DateFormat from '../src/utils/DateFormat/index.js'
 import PersonRowTableFormatter from '../src/presentation/helpers/PersonRowTableFormatter/index.js'
 const { describe, it } = mocha
 const { expect } = chai
