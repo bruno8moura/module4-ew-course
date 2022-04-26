@@ -1,11 +1,14 @@
 import { writeFile, readFile } from 'fs/promises'
 
 export default class JSONRepository {
+  constructor ({ databaseFile }) {
+    this.databaseFile = databaseFile
+  }
+
   async save (data) {
-    const { pathname: databaseFile } = new URL('../database/database.json', import.meta.url)
-    const currentData = JSON.parse((await readFile(databaseFile)))
+    const currentData = JSON.parse((await readFile(this.databaseFile)))
     currentData.push(data)
 
-    await writeFile(databaseFile, JSON.stringify(currentData))
+    await writeFile(this.databaseFile, JSON.stringify(currentData))
   }
 }

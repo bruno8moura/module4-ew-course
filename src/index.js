@@ -14,7 +14,10 @@ const data = database.map(item => new Person(item))
 const personFormatter = new PersonRowTableFormatter({dateFormat: new DateFormat(), internationalization: new Internationalization(), language: DEFAULT_LANG})
 const table = new Table({ data, formatter: personFormatter, tableFields: [ 'ID', 'Vehicles', 'Km Traveled', 'From', 'To' ]})
 
-const terminalController = new TerminalController({ customTerminal, table, repository: new JSONRepository() })
+const { pathname: databaseFile} = new URL( './infra/database/database.json', import.meta.url)
+const repository = new JSONRepository({databaseFile})
+
+const terminalController = new TerminalController({ customTerminal, table, repository })
 
 async function mainLoop () {
   try {

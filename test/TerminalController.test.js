@@ -24,7 +24,7 @@ describe('TerminalController', () => {
   })
 
   it("should print in terminal the person's table from an user's input", async () => {
-    const repository = new JSONRepository()
+    const repository = new JSONRepository({ databaseFile: 'any_path' })
     const expectedUsersInput = 'any_input'
     const terminal = new Terminal()
     const customTerminal = terminal.create()
