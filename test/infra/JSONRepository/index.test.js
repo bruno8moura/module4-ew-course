@@ -1,7 +1,6 @@
-import { describe, it, beforeEach, afterEach, after } from 'mocha'
+import { describe, it, after } from 'mocha'
 import chai from 'chai'
 import chaiAsPromised from 'chai-as-promised'
-import sinon from 'sinon'
 import JSONRepository from '../../../src/infra/JSONRepository/index.js'
 import mock from 'mock-fs'
 import { readFile } from 'fs/promises'
@@ -14,16 +13,6 @@ mock({
 })
 
 describe('JSONRepository', () => {
-  let sandbox = {}
-
-  beforeEach(() => {
-    sandbox = sinon.createSandbox()
-  })
-
-  afterEach(() => {
-    sandbox.restore()
-  })
-
   after(() => {
     mock.restore()
   })
