@@ -52,7 +52,7 @@ describe(CLI.name, () => {
   })
 
   it('should print an object', async () => {
-    sandbox.spy(console, console.draft.name)
+    sandbox.stub(console, console.draft.name)
 
     const sut = new CLI()
 
