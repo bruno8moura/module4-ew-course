@@ -50,4 +50,18 @@ describe(CLI.name, () => {
     // eslint-disable-next-line no-unused-expressions
     expect(prompt.close.calledOnce).to.be.ok
   })
+
+  it('should print an object', async () => {
+    sandbox.spy(console, console.draft.name)
+
+    const sut = new CLI()
+
+    const printedObj = { a: 1 }
+    sut.print(printedObj)
+
+    // eslint-disable-next-line no-unused-expressions
+    expect(console.draft.calledOnce).to.be.ok
+    // eslint-disable-next-line no-unused-expressions
+    expect(console.draft.calledWithExactly(printedObj)).to.be.ok
+  })
 })
