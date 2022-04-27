@@ -56,4 +56,25 @@ describe('TerminalController', () => {
     expect(cli.print.calledTwice).to.be.ok
     expect(repository.save.calledOnce).to.be.ok
   })
+
+  it("should close terminal from an user's input", async () => {
+    const repository = new JSONRepository({ databaseFile: 'any_path' })
+    const expectedUsersInput = ':q'
+    const cli = new CLI()
+    sandbox.stub(cli, 'readInput').resolves(expectedUsersInput)
+    sandbox.stub(cli, 'close')
+    const table = new Table({ data: [], language: 'any_language', formatter: {}, tableFields: ['Field A'], tableHelper: {} })
+    sandbox.stub(table, 'updateTable').returns()
+    sandbox.stub(table, 'drawTable').returns()
+
+    const sut = new TerminalController({
+      cli,
+      repository,
+      table
+    })
+
+    const result = await sut.execute()
+    expect(result).to.be.false
+    expect(cli.close.calledOnce).to.be.ok
+  })
 })
