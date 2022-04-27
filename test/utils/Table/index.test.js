@@ -1,10 +1,21 @@
-import { describe, it } from 'mocha'
+import { describe, it, beforeEach, afterEach } from 'mocha'
 import Table from '../../../src/utils/Table/index.js'
 import chai from 'chai'
+import sinon from 'sinon'
+import ChalkTable from '../../../src/utils/ChalkTable/index.js'
 
 const { expect } = chai
 
 describe(Table.name, () => {
+  let sandbox = {}
+  beforeEach(() => {
+    sandbox = sinon.createSandbox()
+  })
+
+  afterEach(() => {
+    sandbox.restore()
+  })
+
   it('should update data table', () => {
     const data = []
     const sut = new Table({ data, formatter: {}, tableFields: [] })
@@ -24,7 +35,7 @@ describe(Table.name, () => {
       fieldC: 'c'
     }
     const data = [anObject]
-    const sut = new Table({ data, formatter: {}, tableFields })
+    const sut = new Table({ data, formatter: {}, tableFields, tableHelper: new ChalkTable(tableFields) })
 
     const [itemA, itemB, itemC] = sut._buildColumns()
 
@@ -32,5 +43,29 @@ describe(Table.name, () => {
     expect(itemA.field).to.be.equal(keyA)
     expect(itemB.field).to.be.equal(keyB)
     expect(itemC.field).to.be.equal(keyC)
+  })
+
+  it('should draw a table', () => {
+    const tableFields = ['Field A', 'Field B', 'Field C']
+    const anObject = {
+      fieldA: 'a',
+      fieldB: 'b',
+      fieldC: 'c'
+    }
+
+    const formatter = { format: item => {} }
+    const formattedObject = { fieldA: 1 }
+    sandbox.stub(formatter, 'format').returns(formattedObject)
+
+    const chalkTable = new ChalkTable(tableFields)
+    sandbox.stub(chalkTable, chalkTable.drawTable.name).returns('a table drawn')
+    sandbox.stub(chalkTable, chalkTable.columns.name).returns({})
+
+    const data = [anObject]
+    const sut = new Table({ data, formatter, tableFields, tableHelper: chalkTable })
+    sut.drawTable()
+
+    // eslint-disable-next-line no-unused-expressions
+    expect(chalkTable.drawTable.calledOnce).to.be.ok
   })
 })

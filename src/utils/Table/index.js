@@ -1,15 +1,13 @@
-import chalkTable from 'chalk-table'
-import chalk from 'chalk'
-
 export default class Table {
-  constructor ({ data, formatter, tableFields }) {
+  constructor ({ data, formatter, tableFields, tableHelper }) {
     this.data = data
     this.formatter = formatter
     this.tableFields = tableFields
+    this.table = tableHelper
   }
 
   drawTable () {
-    return chalkTable(this.getTableOptions(), this.data.map(item => this.formatter.format(item)))
+    return this.table.drawTable(this.getTableOptions(), this.data.map(item => this.formatter.format(item)))
   }
 
   getTableOptions () {
@@ -30,9 +28,7 @@ export default class Table {
       return mapper
     })
 
-    return this.tableFields.map(tableField =>
-      ({ field: objectFieldToColumnFieldMapper[tableField], name: chalk.cyan(tableField) })
-    )
+    return this.table.columns(objectFieldToColumnFieldMapper)
   }
 
   _tableFieldToObjectField (tableField, objectFields) {
