@@ -14,4 +14,22 @@ describe(ChalkTable.name, () => {
     expect(typeof result).to.be.equal('string')
     expect(result).to.be.equal(expected)
   })
+
+  it('should create custom columns to chalktable', () => {
+    const expected = [
+      { field: undefined, name: '\x1B[36mField A\x1B[39m' },
+      { field: undefined, name: '\x1B[36mField B\x1B[39m' },
+      { field: undefined, name: '\x1B[36mField C\x1B[39m' }
+    ]
+    const tableFields = ['Field A', 'Field B', 'Field C']
+    const data = [{ fieldA: 'a', fieldB: 'b', fieldC: 'c' }, { fieldA: 'a', fieldB: 'b', fieldC: 'c' }]
+    const objectFields = Object.keys(data[0])
+
+    const sut = new ChalkTable(tableFields)
+
+    const result = sut.columns(objectFields)
+    console.log(result)
+    expect(typeof result).to.be.equal('object')
+    expect(result).to.be.deep.equal(expected)
+  })
 })
