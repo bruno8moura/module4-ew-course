@@ -19,9 +19,9 @@ export default class CLI {
   }
 
   // easy to test ;)
-  programaticallyWriteInput ({ input }) {
-    this.interfaceTerminal.write(input)
-  }
+  // programaticallyWriteInput ({ input }) {
+  //   this.interfaceTerminal.write(input)
+  // }
 
   print (obj) {
     console.draft(obj)
