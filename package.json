@@ -9,7 +9,8 @@
     "test:watch": "npm test -- -w",
     "test:cov": "c8 -- npm test",
     "dev": "nodemon --ignore src/infra/database/database.json --exec node --experimental-json-modules src/index.js",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "start": "node --experimental-json-modules src/index.js"
   },
   "keywords": [],
   "author": "",
