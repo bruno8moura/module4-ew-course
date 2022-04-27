@@ -28,7 +28,6 @@ describe(ChalkTable.name, () => {
     const sut = new ChalkTable(tableFields)
 
     const result = sut.columns(objectFields)
-    console.log(result)
     expect(typeof result).to.be.equal('object')
     expect(result).to.be.deep.equal(expected)
   })
